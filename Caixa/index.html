@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAIXA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        <img src="assets/img/logo.png" alt="logo">
+        <h1>CAIXA</h1>
+        <button id="clear-cache">Limpar Cache</button>
+    </nav>
+
+    <div class="container">
+        <form class="relatorio-caixa">
+            <label for="dinheiro">Dinheiro:</label>
+            <input type="number" id="money-value1" name="money-value1" required>                    
+        
+            <label for="cartao">Cartão:</label>
+            <input type="number" id="card-value1" name="card-value1" required>
+        
+            <label for="saida">Saída:</label>
+            <input type="number" id="exit-value1" name="exit-value1" required>
+        </form>
+        
+        
+        <div class="result">
+            <p id="total-dinheiro">Total dinheiro: <span id="money"></span></p>
+            <p id="total-cartao">Total cartão: <span id="cart"></span></p>
+            <p id="total-saida">Total saída: <span id="exit"></span></p>
+            <p id="total-value">Total: <span id="total"></span></p>
+        </div>
+
+        <!-- Botão para limpar o cache -->
+        
+    </div>
+    
+  
+
+    
+
+    <script src="script.js"></script>
+</body>
+
+</html>

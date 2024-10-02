@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Remove as setas do input number no Chrome, Safari, Edge e Opera */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+/* Remove as setas do input number no Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+
+}
+
+nav{
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    h1{
+        color: white;
+        font-size: 24px;
+        margin-left: 35%;     
+    }
+}
+
+nav img{
+    width: 150px;
+    margin-left: 20px;
+    border-radius: 25px;  
+}
+nav button{
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-left: 30%  ;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    scrollbar-width: thin;
+
+
+
+   
+
+}
+
+.container input{
+    padding: 5px;         
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    
+}
+
+.relatorio-caixa{
+    flex-basis: 40%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
+
+
+}
+.result{
+
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-right: 30%;
+    gap: 60px;
+    transition: color 0.3s ease;
+
+
+   
+   
+    
+
+
+}
