@@ -32,15 +32,22 @@ nav{
     h1{
         color: white;
         font-size: 24px;
-        margin-left: 25%;     
+        margin-left: 15%;     
     }
     a{
         color: white;
         text-decoration: none;
         margin-left: 50px;
+        transition: background-color 0.2s ease;
+        transition: color 0.2s ease;
+    
+        
 
     }
-
+    a:hover{
+        color: #c5c5c5;       
+      
+    }
 
 }
 
@@ -56,7 +63,7 @@ nav button{
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    margin-left: 40%  ;
+    margin-left: 35%;
 }
 
 .container{
@@ -73,15 +80,12 @@ nav button{
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    scrollbar-width: thin;
-
-
-
-   
+    scrollbar-width: thin;   
 
 }
 
 .container input{
+    text-align: center;
     padding: 5px;         
     border: none;
     border-bottom: 1px solid #ccc;
@@ -113,14 +117,130 @@ nav button{
     margin-right: 30%;
     gap: 60px;
     p{
-        margin-top:5px;
+        margin-top:3px;
+        
+    }     
+}
+
+.trocos{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    
+    
+
+    button{
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
     }
+    button:hover{
+        background-color: #555;
+    }
+
     
+}
 
-
-   
-   
+.pagamento{
     
+    
+    width: 30%;
+    height: 350x;  
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 40px;
+    transition: background-color 0.2s ease;
+    
+    
+    input{
+        text-align: center;
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+ 
+    
+}
+
+.valores{
+    
+    width: 30%;
+    height: 312px;  
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 40px;
+    gap:80px;
+    
+    
+    p{
+        
+        font-size: 25px;
+    }
+}
+.valoresResutado{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+}
 
 
+.historico{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    background-color: #f2f2f2;
+    overflow-x: auto;    
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    scrollbar-width: thin;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 20px
+    
+}
+
+.copyright {
+ 
+   
+    width: 100%;
+    background-color: #333;  
+    color: white;
+   
+    text-align: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    
+    font-size: 12px;
+    
+    a {
+        color: white;
+        text-decoration: none;
+    }
+        
+
+    
+}
+
+@media only screen and (max-width: 768px) {
+    .copyright {
+        position: relative;
+        text-align: left;
+    }
 }

@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Acumuladores para os valores
     let totalMoney = parseFloat(localStorage.getItem('totalMoney')) || 0;
     let totalCard = parseFloat(localStorage.getItem('totalCard')) || 0;
     let totalExit = parseFloat(localStorage.getItem('totalExit')) || 0;
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
-    // Captura os inputs e os elementos de exibição
     const moneyInput = document.getElementById('money-value1');
     const cardInput = document.getElementById('card-value1');
     const exitInput = document.getElementById('exit-value1');
@@ -14,47 +13,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDisplay = document.getElementById('total');
     const clearCacheBtn = document.getElementById('clear-cache');
 
-    // Função que atualiza os valores na tela com "R$" e salva no localStorage
     function updateDisplay() {
-        // Atualiza os valores acumulados no DOM com "R$" antes do valor
         moneyDisplay.textContent = `R$ ${totalMoney.toFixed(2)}`;
         moneyDisplay.style.color = 'green';
         cardDisplay.textContent = `R$ ${totalCard.toFixed(2)}`;
         cardDisplay.style.color = 'blue';
         exitDisplay.textContent = `R$ ${totalExit.toFixed(2)}`;
         exitDisplay.style.color ='red';
-
-        // Calcula o total final e atualiza
         const total = (totalMoney + totalCard) - totalExit;
         totalDisplay.textContent = `R$ ${total.toFixed(2)}`;
 
-        // Salva os valores no localStorage
         localStorage.setItem('totalMoney', totalMoney);
         localStorage.setItem('totalCard', totalCard);
         localStorage.setItem('totalExit', totalExit);
     }
 
-    // Função para adicionar valores e limpar o input
-    function addValue(input, totalRef) {
-        const value = parseFloat(input.value) || 0; // Pega o valor inserido ou 0 se for inválido
-        totalRef += value; // Adiciona ao total correspondente
-        input.value = ''; // Limpa o input
-        return totalRef; // Retorna o novo total
+    function addTransaction(type, value) {
+        const transaction = {
+            type: type,
+            value: parseFloat(value),
+            date: new Date().toLocaleString()
+        };
+        transactions.push(transaction);
+        localStorage.setItem('transactions', JSON.stringify(transactions));
     }
 
-    // Adicionar evento de 'keydown' para detectar Enter nos campos
+    function addValue(input, totalRef, type) {
+        const value = parseFloat(input.value) || 0;
+        totalRef += value;
+        input.value = '';
+        addTransaction(type, value);
+        return totalRef;
+    }
+
     moneyInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Previne o comportamento padrão do Enter
-            totalMoney = addValue(moneyInput, totalMoney); // Atualiza o total de dinheiro
-            updateDisplay(); // Atualiza a exibição
+            event.preventDefault();
+            totalMoney = addValue(moneyInput, totalMoney, 'Dinheiro');
+            updateDisplay();
         }
     });
 
     cardInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            totalCard = addValue(cardInput, totalCard); // Atualiza o total de cartão
+            totalCard = addValue(cardInput, totalCard, 'Cartão');
             updateDisplay();
         }
     });
@@ -62,20 +65,84 @@ document.addEventListener("DOMContentLoaded", () => {
     exitInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            totalExit = addValue(exitInput, totalExit); // Atualiza o total de saída
+            totalExit = addValue(exitInput, totalExit, 'Saída');
             updateDisplay();
         }
     });
 
-    // Função para limpar o cache
     clearCacheBtn.addEventListener('click', () => {
-        localStorage.clear(); // Limpa o localStorage
+        localStorage.clear();
         totalMoney = 0;
         totalCard = 0;
         totalExit = 0;
-        updateDisplay(); // Atualiza os valores na tela
+        transactions = [];
+        updateDisplay();
     });
 
-    // Atualiza a exibição inicial com os valores salvos no localStorage
     updateDisplay();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const transactionList = document.getElementById('transaction-list');
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+    transactions.forEach(transaction => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${transaction.type}</td>
+            <td>R$ ${transaction.value.toFixed(2)}</td>
+            <td>${transaction.date}</td>
+        `;
+        transactionList.appendChild(row);
+    });
+});
+// Função para calcular o valor total (mensalidade - desconto)
+function calcular() {
+    const valorSemDesconto = parseFloat(document.getElementById('value-bruto').value);
+    const valorDoDesconto = parseFloat(document.getElementById('value-discount').value);
+
+    // Verificando se os campos de valor bruto e desconto foram preenchidos
+    if (isNaN(valorSemDesconto) || isNaN(valorDoDesconto)) {
+        alert("Preencha os campos de valor da mensalidade e desconto corretamente.");
+        return;
+    }
+
+    // Calculando o valor total (mensalidade - desconto)
+    const valorTotal = valorSemDesconto - valorDoDesconto;
+
+    // Atualizando o valor total no HTML
+    document.getElementById('valorTotal').textContent = `R$ ${valorTotal.toFixed(2)}`;
+}
+
+// Função para calcular o troco (valor recebido - valor total)
+function calcularTroco() {
+    const valorTotal = parseFloat(document.getElementById('valorTotal').textContent.replace('R$ ', ''));
+    const valorRecebido = parseFloat(document.getElementById('value-received').value);
+
+    // Verificando se o valor total e o valor recebido foram preenchidos
+    if (isNaN(valorTotal)) {
+        alert("Calcule o valor total primeiro.");
+        return;
+    }
+
+    if (isNaN(valorRecebido)) {
+        alert("Preencha o valor recebido.");
+        return;
+    }
+
+    // Calculando o troco
+    const troco = valorRecebido - valorTotal;
+
+    // Atualizando o valor do troco no HTML
+    document.getElementById('troco').textContent = `R$ ${troco.toFixed(2)}`;
+    
+    // Definindo a cor do texto do troco (vermelho se for negativo)
+    if (troco < 0) {
+        document.getElementById('troco').style.color = 'red';
+        document.getElementById('troco').style.fontWeight = 'bold';
+    } else {
+        document.getElementById('troco').style.color = 'green'; // Verde se for positivo
+        document.getElementById('troco').style.fontWeight = 'normal';
+    }
+}

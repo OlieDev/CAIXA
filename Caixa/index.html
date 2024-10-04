@@ -11,42 +11,77 @@
 <body>
     <nav>
         <img src="assets/img/logo.png" alt="logo">
-        <a href="https://abatimento.netlify.app/" target="_blank"> abatimento </a>
+        <a href="https://abatimento.netlify.app/" target="_blank"> Abatimento </a>
+        <a href="relatorioCaixa.html">Relatorio Caixa</a>
         <h1>CAIXA</h1>
+     
         <button id="clear-cache">Limpar Cache</button>
-        
+
     </nav>
 
     <div class="container">
         <form class="relatorio-caixa">
             <label for="dinheiro">Dinheiro:</label>
-            <input type="number" id="money-value1" name="money-value1" required>                    
-        
+            <input type="number" id="money-value1" name="money-value1" required>
+
             <label for="cartao">Cartão:</label>
             <input type="number" id="card-value1" name="card-value1" required>
-        
+
             <label for="saida">Saída:</label>
             <input type="number" id="exit-value1" name="exit-value1" required>
         </form>
-        
-        
+
+
         <div class="result">
             <p id="total-dinheiro">Total dinheiro: <span id="money"></span></p>
-            
+
             <p id="total-cartao">Total cartão: <span id="cart"></span></p>
-           
+
             <p id="total-saida">Total saída: <span id="exit"></span></p>
-            <hr>    
+            <hr>
             <p id="total-value">Total: <span id="total"></span></p>
         </div>
 
         <!-- Botão para limpar o cache -->
-        
-    </div>
-    
-  
 
-    
+    </div>
+
+
+
+
+    <main class="trocos">
+        <div class="pagamento">
+            <label for="valorBruto">Valor da Mensalidade:</label>
+            <input type="number" id="value-bruto" name="value-bruto" required>
+            <label for="valorDesconto">Valor do desconto:</label>
+            <input type="number" id="value-discount" name="value-discount" required>
+            <label for="valorAluno">Valor Recebido:</label>
+            <input type="number" id="value-received" name="value-received">
+
+            <!-- Botão para calcular o valor total com e sem desconto -->
+            <button type="button" onclick="calcular()">Calcular Valor Total</button>
+
+            <!-- Botão para calcular o troco -->
+            <button type="button" onclick="calcularTroco()">Calcular Troco</button>
+        </div>
+        <div class="valores">
+            <div class="valoresResutado">
+                <p id="valorT">Valor total: <span id="valorTotal"></span></p>
+                <p>Troco: <span id="troco"></span></p>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+    <div class="copyright">
+        <p>&copy; 2024 - Escola ETPS - Controle de Abatimentos de Parcelas.Todos os direitos reservados.</p>
+    </div>
+    </footer>
+
+
+
+
+
 
     <script src="script.js"></script>
 </body>

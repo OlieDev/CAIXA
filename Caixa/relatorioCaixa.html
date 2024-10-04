@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Caixa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <img src="assets/img/logo.png" alt="logo">
+        <a href="index.html">CAIXA</a>
+        <h1 style="margin-left: 25%">RELATÓRIO CAIXA</h1>
+        
+    </nav>
+
+    <div class="historico">
+        <h2>Histórico de Transações</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-list">
+                <!-- Histórico será adicionado aqui -->
+            </tbody>
+        </table>
+    </div>
+    
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const transactionList = document.getElementById('transaction-list');
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+            transactions.forEach(transaction => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transaction.type}</td>
+                    <td>R$ ${transaction.value.toFixed(2)}</td>
+                    <td>${transaction.date}</td>
+                `;
+                transactionList.appendChild(row);
+            });
+        });
+    </script>
+    
+</body>
+</html>
