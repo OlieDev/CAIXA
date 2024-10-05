@@ -20,9 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
         cardDisplay.style.color = 'blue';
         exitDisplay.textContent = `R$ ${totalExit.toFixed(2)}`;
         exitDisplay.style.color ='red';
+        
+        // Atualiza o total somando dinheiro e cartão e subtraindo saídas
         const total = (totalMoney + totalCard) - totalExit;
         totalDisplay.textContent = `R$ ${total.toFixed(2)}`;
 
+        // Armazenando os valores atualizados no localStorage
         localStorage.setItem('totalMoney', totalMoney);
         localStorage.setItem('totalCard', totalCard);
         localStorage.setItem('totalExit', totalExit);
@@ -65,7 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
     exitInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            totalExit = addValue(exitInput, totalExit, 'Saída');
+            
+            // Ao adicionar uma saída, ela será subtraída diretamente do dinheiro
+            const exitValue = parseFloat(exitInput.value) || 0;
+            totalExit += exitValue;
+            totalMoney -= exitValue;  // Subtraindo a saída do total de dinheiro
+            
+            addTransaction('Saída', exitValue);
             updateDisplay();
         }
     });
@@ -82,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateDisplay();
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const transactionList = document.getElementById('transaction-list');
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
@@ -97,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         transactionList.appendChild(row);
     });
 });
+
 // Função para calcular o valor total (mensalidade - desconto)
 function calcular() {
     const valorSemDesconto = parseFloat(document.getElementById('value-bruto').value);
