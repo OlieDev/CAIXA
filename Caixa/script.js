@@ -21,15 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
         exitDisplay.textContent = `R$ ${totalExit.toFixed(2)}`;
         exitDisplay.style.color ='red';
         
-        // Atualiza o total somando dinheiro e cartão e subtraindo saídas
-        const total = (totalMoney + totalCard) - totalExit;
+        // Atualiza o total somando dinheiro e cartão sem subtrair a saída
+        const total = totalMoney + totalCard;
         totalDisplay.textContent = `R$ ${total.toFixed(2)}`;
-
+    
         // Armazenando os valores atualizados no localStorage
         localStorage.setItem('totalMoney', totalMoney);
         localStorage.setItem('totalCard', totalCard);
         localStorage.setItem('totalExit', totalExit);
     }
+    
 
     function addTransaction(type, value) {
         const transaction = {
@@ -69,20 +70,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.key === 'Enter') {
             event.preventDefault();
             
-            // Ao adicionar uma saída, ela será subtraída diretamente do dinheiro
             const exitValue = parseFloat(exitInput.value) || 0;
-            totalExit += exitValue;
-            totalMoney -= exitValue;  // Subtraindo a saída do total de dinheiro
-            
-            addTransaction('Saída', exitValue);
-            updateDisplay();
+    
+            // Subtrai o valor da saída do total de dinheiro, permitindo que fique negativo
+            totalMoney -= exitValue;  
+            totalExit += exitValue;   // Adiciona o valor da saída ao total de saídas
+            addTransaction('Saída', exitValue);  // Registra a transação de saída
+    
+            exitInput.value = '';  // Limpa o campo de entrada de saída
+            updateDisplay();  // Atualiza a exibição dos valores
         }
     });
+    
+    
 
     clearCacheBtn.addEventListener('click', () => {
         localStorage.clear();
         totalMoney = 0;
-        totalCard = 0;
+        totalCard = 0;S
         totalExit = 0;
         transactions = [];
         updateDisplay();

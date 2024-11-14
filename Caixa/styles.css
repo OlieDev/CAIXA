@@ -32,12 +32,12 @@ nav{
     h1{
         color: white;
         font-size: 24px;
-        margin-left: 15%;     
+        margin-left: 10%;     
     }
     a{
         color: white;
         text-decoration: none;
-        margin-left: 50px;
+        margin-left: 90px;
         transition: background-color 0.2s ease;
         transition: color 0.2s ease;
     
@@ -63,7 +63,7 @@ nav button{
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    margin-left: 35%;
+    margin-left: 20%;
 }
 
 .container{
